@@ -1,11 +1,11 @@
 node{
    stage('SCM Checkout'){
-     git 'https://github.com/damodaranj/my-app.git'
+     git 'https://github.com/RakeshGanapathy/my-app.git'
    }
    stage('Compile-Package'){
 
       def mvnHome =  tool name: 'maven3', type: 'maven'   
-      sh "./bin/mvn clean package"
+      sh "/usr/share/maven clean package"
 	  sh 'mv target/myweb*.war target/newapp.war'
    }
    stage('SonarQube Analysis') {
