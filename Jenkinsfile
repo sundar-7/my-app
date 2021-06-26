@@ -19,6 +19,7 @@ node{
    sh 'docker build -t arkhes/mydemo:0.0.2 .'
    }
    stage('Docker Image Push'){
+	   // create a credential of type secrettext with docker hub password with id as "dockerPass"
    withCredentials([string(credentialsId: 'dockerPass', variable: 'dockerPassword')]) {
    sh "docker login -u arkhes -p ${dockerPassword}"
     }
