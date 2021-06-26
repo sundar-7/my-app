@@ -46,9 +46,9 @@ node{
 // else
 //     aws cloudformation create-stack --stack-name dev-nics-proxyservlet-svc --region us-west-2 --template-body file://dev-nics-proxyservlet-cluster.yml --parameters file://dev-nics-proxyservlet-svc-param.json --capabilities "CAPABILITY_IAM" "CAPABILITY_NAMED_IAM"
 // fi
-		if (sh "aws cloudformation describe-stacks --stack-name s3bucket --region 'ap-south-1'"){
-		echo "started updating"
-		}
+		if sh "aws cloudformation describe-stacks --stack-name s3bucket --region 'ap-south-1'"
+		           echo "started updating"
+		
 		// sh "aws cloudformation create-stack --stack-name s3bucket --template-body file://s3Bucket.yml --region 'ap-south-1'"
 	}catch(error){
 		 sh "aws cloudformation update-stack --stack-name s3bucket --template-body file://s3Bucket.yml --region 'ap-south-1'"
