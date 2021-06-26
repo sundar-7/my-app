@@ -40,7 +40,14 @@ node{
   }
    stage('Deploy'){
 	try{
-		 sh "aws cloudformation create-stack --stack-name s3bucket --template-body file://s3Bucket.yml --region 'ap-south-1'"
+// 		if aws cloudformation describe-stacks --stack-name dev-nics-proxyservlet-svc --region us-west-2 &>/dev/null 
+// then
+//     aws cloudformation delete-stack --stack-name dev-nics-proxyservlet-svc
+// else
+//     aws cloudformation create-stack --stack-name dev-nics-proxyservlet-svc --region us-west-2 --template-body file://dev-nics-proxyservlet-cluster.yml --parameters file://dev-nics-proxyservlet-svc-param.json --capabilities "CAPABILITY_IAM" "CAPABILITY_NAMED_IAM"
+// fi
+		echo sh "aws cloudformation describe-stacks --stack-name s3bucket --template-body file://s3Bucket.yml --region 'ap-south-1'"
+		// sh "aws cloudformation create-stack --stack-name s3bucket --template-body file://s3Bucket.yml --region 'ap-south-1'"
 	}catch(error){
 		 sh "aws cloudformation update-stack --stack-name s3bucket --template-body file://s3Bucket.yml --region 'ap-south-1'"
 	}
