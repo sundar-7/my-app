@@ -5,7 +5,7 @@ node{
    stage('Compile-Package'){
 
       def mvnHome =  tool name: 'maven3', type: 'maven'   
-      sh "/usr/share/maven clean package"
+      sh "./usr/share/maven clean package"
 	  sh 'mv target/myweb*.war target/newapp.war'
    }
    stage('SonarQube Analysis') {
