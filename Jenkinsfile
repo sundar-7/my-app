@@ -39,7 +39,12 @@ node{
 	}
   }
    stage('Deploy'){
-	   sh "aws cloudformation create-stack --stack-name s3bucket --template-body file://s3Bucket.yml --region 'ap-south-1'"
+	   try{
+		 sh "aws cloudformation create-stack --stack-name s3bucket --template-body file://s3Bucket.yml --region 'ap-south-1'"
+	}catch(error){
+		 sh "aws cloudformation update-stack --stack-name s3bucket --template-body file://s3Bucket.yml --region 'ap-south-1'"
+	}
+	  
    	   sh 'docker run -d -p 8090:8080 --name tomcattest arkhes/mydemo:0.0.2' 
    }
 }
