@@ -39,7 +39,7 @@ node{
 	}
   }
    stage('Deploy'){
-	   try{
+	try{
 		 sh "aws cloudformation create-stack --stack-name s3bucket --template-body file://s3Bucket.yml --region 'ap-south-1'"
 	}catch(error){
 		 sh "aws cloudformation update-stack --stack-name s3bucket --template-body file://s3Bucket.yml --region 'ap-south-1'"
