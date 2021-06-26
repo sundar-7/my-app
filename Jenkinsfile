@@ -1,8 +1,8 @@
 node{
-   stage('SCM Checkout'){
+   stage('Prepare'){
      git 'https://github.com/RakeshGanapathy/my-app.git'
    }
-   stage('Compile-Package'){
+   stage('Build'){
 
       def mvnHome =  tool name: 'maven3', type: 'maven'   
 	  sh "${mvnHome}/bin/mvn clean package"
@@ -15,10 +15,10 @@ node{
 // 	          sh "${mvnHome}/bin/mvn sonar:sonar"
 // 	        }
 // 	    }
-   stage('Build Docker Imager'){
+   stage('Build Image'){
    sh 'docker build -t arkhes/mydemo:0.0.2 .'
    }
-   stage('Docker Image Push'){
+   stage('Push Image'){
 	   // create a credential of type secrettext with docker hub password with id as "dockerPass"
    withCredentials([string(credentialsId: 'dockerPass', variable: 'dockerPassword')]) {
    sh "docker login -u arkhes -p ${dockerPassword}"
@@ -31,7 +31,7 @@ node{
 //    sh "docker tag saidamo/myweb:0.0.2 65.0.181.193:8083/damo:1.0.0"
 //    sh 'docker push 65.0.181.193:8083/damo:1.0.0'
 //    }
-   stage('Remove Previous Container'){
+   stage('Remove Container'){
 	try{
 		sh 'docker rm -f tomcattest'
 	}catch(error){
